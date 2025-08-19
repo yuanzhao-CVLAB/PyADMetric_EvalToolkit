@@ -4,14 +4,16 @@
 ##  Introduction
 This repository focuses on providing code for the computation of metrics related to anomaly detection. It offers both a CPU-based version (**test_score.py**) and a GPU-accelerated version (**test_score_gpu_accelerate.py**). 
 The GPU-accelerated version enables fast computation of multiple anomaly detection metrics, such as AUROC, AP, AUPRO, and F1-max at both image-level and pixel-level.
-As demonstrated by the experiments shown in the figure below, our code is ↗️ ***1.77x*** faster than Ader,
+As demonstrated by the experiments shown in the figure below, our code is ↗️ ***1.77x*** faster than [ADer](https://github.com/zhangzjn/ADer),
 a widely-used multi-class anomaly detection library, on the Nvidia RTX 4090, and 
-↗️ ***4.25x*** faster on the Nvidia A6000. More importantly, as the sample size increases or with more efficient GPUs, the speedup in computation becomes even more pronounced 😊.
+↗️ ***4.25x*** faster on the Nvidia A6000. 
+Furthermore, it significantly outperforms traditional CPU-based AD measurement algorithms.
+More importantly, as the sample size increases or with more efficient GPUs, the speedup in computation becomes even more pronounced 😊.
 
 The reasons behind this efficient measurement are as follows:
 
 1. We accelerate commonly CPU-based calculations, such as `roc_auc_score` and `average_precision_score`, using GPU algorithms, such as those provided by `torchmetrics`.
-2. The tensor data on the GPU for predictions do not need to be transferred to the CPU or numpy; they can be directly measured on the GPU.
+2. The predicted anomaly map on the GPU does not need to be transferred to the CPU or numpy; it can be directly measured on the GPU, thereby reducing latency.
 
 ## Installation
 ```bash
