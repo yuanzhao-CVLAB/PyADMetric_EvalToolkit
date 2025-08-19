@@ -29,7 +29,7 @@ or run gpu-accelerated version
 ```bash
 python test_score_gpu_accelerate.py
 ```
-## 2D Anomaly Detection
+## Anomaly Detection Metrics
 
 **AUROC**: Area Under the Receiver Operating Characteristic Curve
 
@@ -61,7 +61,6 @@ python test_score_gpu_accelerate.py
  <img src="https://latex.codecogs.com/svg.image?\text{F1}_{\text{max}}(\theta)=\max_{\theta}\left(\frac{2&space;\times&space;\text{Precision}(\theta)&space;\times&space;\text{Recall}(\theta)}{\text{Precision}(\theta)+\text{Recall}(\theta)}\right)" alt="F1max formula" />
 </p>
 
-## 3D Anomaly Detection Continue......
 
 ## References
 
