@@ -3,7 +3,7 @@
 ![](images/Time_Comparison.png)
 ##  Introduction
 This repository focuses on providing code for the computation of metrics related to anomaly detection. It offers both a CPU-based version (**test_score.py**) and a GPU-accelerated version (**test_score_gpu_accelerate.py**). 
-The GPU-accelerated version enables fast computation of multiple anomaly detection metrics, such as AUROC, AP, and F1-max at both image-level and pixel-level.
+The GPU-accelerated version enables fast computation of multiple anomaly detection metrics, such as AUROC, AP, AUPRO, and F1-max at both image-level and pixel-level.
 As demonstrated by the experiments shown in the figure below, our code is ↗️ ***1.77x*** faster than Ader,
 a widely-used multi-class anomaly detection library, on the Nvidia RTX 4090, and 
 ↗️ ***4.25x*** faster on the Nvidia A6000. More importantly, as the sample size increases or with more efficient GPUs, the speedup in computation becomes even more pronounced 😊.
