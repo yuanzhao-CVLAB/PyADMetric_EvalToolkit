@@ -4,9 +4,9 @@
 ##  Introduction
 This repository focuses on providing code for the computation of metrics related to anomaly detection. It offers both a CPU-based version (**test_score.py**) and a GPU-accelerated version (**test_score_gpu_accelerate.py**). 
 The GPU-accelerated version enables fast computation of multiple anomaly detection metrics, such as AUROC, AP, and F1-max at both image-level and pixel-level.
-As demonstrated by the experiments shown in the figure below, our code is <span style="color:red">1.77x</span> faster than Ader,
+As demonstrated by the experiments shown in the figure below, our code is ↗️ **1.77x** faster than Ader,
 a widely-used multi-class anomaly detection library, on the Nvidia RTX 4090, and 
-<span style="color:red">4.25x</span> faster on the Nvidia A6000. 
+↗️ 4.25x faster on the Nvidia A6000. 
 
 The reasons behind this efficient measurement are as follows:
 
@@ -21,6 +21,11 @@ pip install -r requirements.txt
 
 ```bash
 python test_score.py
+```
+or run gpu-accelerated version
+
+```bash
+python test_score_gpu_accelerate.py
 ```
 ## 2D Anomaly Detection
 
@@ -48,7 +53,7 @@ python test_score.py
  <img src="https://latex.codecogs.com/svg.image?\text{PRO}=\frac{1}{K}\sum_{k=1}^{K}\frac{|P\cap&space;C_k|}{|C_k|}" alt="PRO formula" />
 </p>
 
-**F1max**: F1-score-max (F1-max) -- F1-score at optimal threshold *θ* for a clearer view against potential data imbalance
+**F1-max**: F1-score-max (F1-max) -- F1-score at optimal threshold *θ* for a clearer view against potential data imbalance
 
 <p align="center">
  <img src="https://latex.codecogs.com/svg.image?\text{F1}_{\text{max}}(\theta)=\max_{\theta}\left(\frac{2&space;\times&space;\text{Precision}(\theta)&space;\times&space;\text{Recall}(\theta)}{\text{Precision}(\theta)+\text{Recall}(\theta)}\right)" alt="F1max formula" />
