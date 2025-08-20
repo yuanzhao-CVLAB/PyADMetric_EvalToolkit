@@ -224,7 +224,7 @@ def compute_pro(anomaly_maps, ground_truth_maps, num_thresholds):
 
     return fprs, pros, thr
 
-
+# 比anomalib的GPU版本更快
 def calculate_au_pro(gts, predictions, integration_limit = [0.3, 0.1, 0.05, 0.01], num_thresholds = 99):
     """
     Compute the area under the PRO curve for a set of ground truth images and corresponding anomaly images.
@@ -239,7 +239,7 @@ def calculate_au_pro(gts, predictions, integration_limit = [0.3, 0.1, 0.05, 0.01
         pro_curve: PRO curve values for localization (fpr,pro).
     """
     # Compute the PRO curve.
-    pro_curve = compute_pro(anomaly_maps = predictions, ground_truth_maps = gts, num_thresholds = num_thresholds)
+    pro_curve = compute_pro(anomaly_maps = predictions.cpu().numpy(), ground_truth_maps = gts.cpu().numpy(), num_thresholds = num_thresholds)
 
     au_pros = []
 
@@ -327,12 +327,6 @@ def cal_metric(gt_sp, gt_mask, pr_sp, pr_mask, shape=None):
     shape: (H, W)
     """
 
-    # 如果 calculate_au_pro 你有 Torch 版本，直接替换下面调用
-    pro = calculate_au_pro(gt_mask.cpu().numpy().reshape(-1, *shape), pr_mask.cpu().numpy().reshape(-1, *shape))
-
-    # 展平
-    gt_mask = gt_mask.flatten().long()
-    pr_mask = pr_mask.flatten()
 
     spauc = auroc(pr_sp, gt_sp, task="binary").item()
     spap = average_precision(pr_sp, gt_sp, task="binary").item()
@@ -341,6 +335,9 @@ def cal_metric(gt_sp, gt_mask, pr_sp, pr_mask, shape=None):
     pixelauc = auroc(pr_mask, gt_mask, task="binary").item()
     pixelap = average_precision(pr_mask, gt_mask, task="binary").item()
     pixelmaxf1, pixelaupr, _, _, _ = calculate_max_f1_torch(gt_mask, pr_mask)
+
+
+    pro = calculate_au_pro(gt_mask.reshape(-1, *shape), pr_mask.reshape(-1, *shape))
 
     result = {"Image-AUROC": spauc,"Image-Average precision": spap,"Image-F1-maximum": spmaxf1,"Image-AUPR": spaupr,
               "Pixel-AUROC": pixelauc, "Pixel-Average precision": pixelap, "Pixel-F1-maximum": pixelmaxf1, "Pixel-AUPR": pixelaupr,
